@@ -1,0 +1,94 @@
+.card {
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-width: 600px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.repoName {
+  font-size: 20px;
+  font-weight: 600;
+  color: #1a1a1a;
+  text-decoration: none;
+}
+
+.repoName:hover {
+  color: #7c3aed;
+}
+
+.publicBadge {
+  padding: 4px 12px;
+  font-size: 14px;
+  font-weight: 500;
+  background-color: #7c3aed;
+  color: white;
+  border-radius: 16px;
+}
+
+.description {
+  color: #4b5563;
+  font-size: 16px;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  color: #6b7280;
+  font-size: 14px;
+}
+
+.language {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.languageDot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.stars {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.starIcon {
+  color: #5708ea;
+}
+
+.updateInfo {
+  white-space: nowrap;
+}
+
+.checkIcon {
+  color: #22c55e;
+}
+
+/* Responsive Design */
+@media (max-width: 640px) {
+  .card {
+    padding: 16px;
+  }
+
+  .footer {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+}
+

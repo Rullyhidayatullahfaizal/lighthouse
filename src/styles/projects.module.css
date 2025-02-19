@@ -1,0 +1,41 @@
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+  }
+  
+  .title {
+    color: #333;
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+  
+  .grid {
+    display: grid;
+    gap: 2rem;
+    width: 100%;
+    
+    /* Mobile: 1 card per row */
+    grid-template-columns: 1fr;
+    
+    /* Tablet: 2 cards per row */
+    @media (min-width: 768px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    
+    /* Desktop: 3 cards per row */
+    @media (min-width: 1024px) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  
+  /* Optional: Add some hover effect to the cards */
+  .grid > div {
+    transition: transform 0.2s ease-in-out;
+  }
+  
+  .grid > div:hover {
+    transform: translateY(-4px);
+  }
