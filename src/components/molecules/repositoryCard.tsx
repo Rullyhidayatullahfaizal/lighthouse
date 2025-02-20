@@ -1,17 +1,16 @@
-import { Star, Check } from "lucide-react"
-import styles from "./repositoryCard.module.css"
+import { Star, Check } from "lucide-react";
+import styles from "./repositoryCard.module.css";
 
 interface RepositoryCardProps {
-  name: string
-  isPublic?: boolean
-  language?: string
-  languageColor?: string
-  updatedAt: string
-  stars?: number
-  description?: string
-  
-  url?: string
-  onClick?: () => void
+  name: string;
+  isPublic?: boolean;
+  language?: string;
+  languageColor?: string;
+  updatedAt: string;
+  stars?: number;
+  description?: string;
+  url?: string;
+  onClick?: () => void;
 }
 
 export default function RepositoryCard({
@@ -22,14 +21,14 @@ export default function RepositoryCard({
   stars = 0,
   description,
   updatedAt,
-  url = "#",
+  onClick,
 }: RepositoryCardProps) {
   return (
-    <div className={styles.card}>
+    <div className={styles.card} >
       <div className={styles.header}>
-        <a href={url} className={styles.repoName}>
+        <span className={styles.repoName} onClick={onClick}>
           {name}
-        </a>
+        </span>
         {isPublic && <span className={styles.publicBadge}>Public</span>}
       </div>
 
@@ -38,7 +37,10 @@ export default function RepositoryCard({
       <div className={styles.footer}>
         {language && (
           <span className={styles.language}>
-            <span className={styles.languageDot} style={{ backgroundColor: languageColor }} />
+            <span
+              className={styles.languageDot}
+              style={{ backgroundColor: languageColor }}
+            />
             {language}
           </span>
         )}
@@ -47,9 +49,7 @@ export default function RepositoryCard({
           {stars.toLocaleString()}
         </span>
         <span className={styles.updateInfo}>Updated on {updatedAt}</span>
-
       </div>
     </div>
-  )
+  );
 }
-

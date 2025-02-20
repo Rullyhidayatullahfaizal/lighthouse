@@ -5,11 +5,25 @@
   }
   
   .title {
-    color: #333;
-    font-size: 2rem;
+    color: #ae83e5;
+    font-size: 4rem;
     font-weight: 600;
     margin-bottom: 2rem;
     text-align: center;
+  }
+
+  .loading {
+    text-align: center;
+    font-size: 1rem;
+    color: rgb(255, 255, 255);
+    margin-top: 10px;
+  }
+  
+  .empty {
+    text-align: center;
+    font-size: 18px;
+    color: rgb(236, 53, 53);
+    margin-top: 20px;
   }
   
   .grid {
@@ -23,7 +37,11 @@
     /* Tablet: 2 cards per row */
     @media (min-width: 768px) {
       grid-template-columns: repeat(2, 1fr);
+
+     
     }
+
+   
     
     /* Desktop: 3 cards per row */
     @media (min-width: 1024px) {
@@ -38,4 +56,10 @@
   
   .grid > div:hover {
     transform: translateY(-4px);
+  }
+
+  @media (max-width: 767px) {
+    .title {
+      font-size: 2rem;
+    }
   }

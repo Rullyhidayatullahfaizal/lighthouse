@@ -22,13 +22,14 @@
     text-align: center;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     width: 300px;
+    color: #5a5a5a;
 
   }
   
   /* Tombol Close */
   .modalCloseBtn {
     background-color: #ae83e5;
-    color: white;
+    color: rgb(60, 59, 59);
     border: none;
     padding: 10px 20px;
     border-radius: 5px;

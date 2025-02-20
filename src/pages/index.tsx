@@ -11,12 +11,14 @@ import LitModal from "@/components/ui/modal";
 
 export default function Home() {
   const [input, setInput] = useState("");
-  const [showModal, setShowModal] = useState(false); 
+  const [showModal, setShowModal] = useState(false);
+  const [loading, setLoading] = useState(false); 
   const { setUsername, setRepos } = useGitHub();
   const router = useRouter();
 
   const handleSearch = async () => {
     if (!input) return;
+    setLoading(true); 
     setUsername(input);
 
     try {
@@ -25,7 +27,7 @@ export default function Home() {
       );
       
       if (data.length === 0) {
-        setShowModal(true); // Jika repositori kosong, tampilkan modal
+        setShowModal(true); 
         return;
       }
 
@@ -33,6 +35,8 @@ export default function Home() {
       router.push(`/projects`);
     } catch (error) {
       setShowModal(true); // Jika user tidak ditemukan, tampilkan modal
+    }finally{
+      setLoading(false);
     }
   };
 
@@ -54,7 +58,9 @@ export default function Home() {
           value={input}
           onChange={(e) => setInput(e.target.value)}
         />
-        <LitButton onClick={handleSearch}>Search</LitButton>
+        <LitButton onClick={handleSearch} disabled={loading}>
+            {loading ? "Loading..." : "Search"}
+          </LitButton>
         </div>
       </div>
 
