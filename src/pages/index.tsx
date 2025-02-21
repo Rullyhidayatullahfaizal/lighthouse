@@ -6,36 +6,47 @@ import axios from "axios";
 import LitButton from "@/components/ui/button";
 import LitModal from "@/components/ui/modal"; 
 
-
-
-
 export default function Home() {
   const [input, setInput] = useState("");
   const [showModal, setShowModal] = useState(false);
-  const [loading, setLoading] = useState(false); 
+  const [loading, setLoading] = useState(false);
+  const [modalMessage, setModalMessage] = useState("");  
   const { setUsername, setRepos } = useGitHub();
   const router = useRouter();
 
   const handleSearch = async () => {
     if (!input) return;
-    setLoading(true); 
+    setLoading(true);
     setUsername(input);
-
+  
     try {
-      const { data } = await axios.get(
-        `https://api.github.com/users/${input}/repos`
-      );
-      
-      if (data.length === 0) {
-        setShowModal(true); 
+      const response = await axios.get(`https://api.github.com/users/${input}/repos`);
+
+      // Jika user tidak memiliki repository (tapi username valid)
+      if (response.data.length === 0) {
+        setModalMessage("The GitHub username you entered does not exist.");
+        setShowModal(true);
         return;
       }
 
-      setRepos(data);
+      // Jika berhasil, set repositori dan pindah ke halaman projects
+      setRepos(response.data);
       router.push(`/projects`);
     } catch (error) {
-      setShowModal(true); // Jika user tidak ditemukan, tampilkan modal
-    }finally{
+      if (axios.isAxiosError(error)) {
+        if (error.response?.status === 403) {
+          console.warn("GitHub API rate limit exceeded!");
+          setModalMessage("You have exceeded the GitHub API request limit. Please try again later.");
+        } else if (error.response?.status === 404) {
+          setModalMessage("The GitHub username you entered does not exist.");
+        } else {
+          setModalMessage("An error occurred while fetching data.");
+        }
+      } else {
+        setModalMessage("An unknown error occurred.");
+      }
+      setShowModal(true);
+    } finally {
       setLoading(false);
     }
   };
@@ -51,26 +62,26 @@ export default function Home() {
       <div className="search-container">
         <h1 className="search-title">GitHub Repository Finder</h1>
         <div className="input-search">
-        <input
-          className="search-box"
-          placeholder="search name github"
-          type="text"
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-        />
-        <LitButton onClick={handleSearch} disabled={loading}>
+          <input
+            className="search-box"
+            placeholder="search name github"
+            type="text"
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+          />
+          <LitButton onClick={handleSearch} disabled={loading}>
             {loading ? "Loading..." : "Search"}
           </LitButton>
         </div>
       </div>
 
-      {/* Menggunakan LitModal */}
+      {/* LitModal dengan modalMessage yang dinamis */}
       {showModal && (
         <LitModal onClose={() => setShowModal(false)}>
-          <h2>User Not Found</h2>
-          <p>The GitHub username you entered does not exist.</p>
+          <h2>Error</h2>
+          <p>{modalMessage}</p>
         </LitModal>
       )}
     </>
-  )
+  );
 }

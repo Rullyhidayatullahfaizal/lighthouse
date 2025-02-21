@@ -1,17 +1,26 @@
 import { createContext, useContext, useState, ReactNode, useEffect } from "react";
 
+interface Repository {
+  id: number;
+  name: string;
+  description: string | null;
+  html_url: string;
+  stargazers_count: number;
+  language: string | null;
+}
+
 interface GitHubContextType {
   username: string;
   setUsername: (username: string) => void;
-  repos: any[];
-  setRepos: (repos: any[]) => void;
+  repos: Repository[];
+  setRepos: (repos: Repository[]) => void;
 }
 
 const GitHubContext = createContext<GitHubContextType | undefined>(undefined);
 
 export const GitHubProvider = ({ children }: { children: ReactNode }) => {
   const [username, setUsername] = useState<string>("");
-  const [repos, setRepos] = useState<any[]>([]);
+  const [repos, setRepos] = useState<Repository[]>([]); // ✅ Ubah dari any[] menjadi Repository[]
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -27,7 +36,7 @@ export const GitHubProvider = ({ children }: { children: ReactNode }) => {
     try {
       const response = await fetch(`https://api.github.com/users/${user}/repos`);
       if (!response.ok) throw new Error("Failed to fetch repositories");
-      const data = await response.json();
+      const data: Repository[] = await response.json(); // ✅ Pastikan data memiliki tipe Repository[]
       setRepos(data);
     } catch (error) {
       console.error("Error fetching repositories:", error);
