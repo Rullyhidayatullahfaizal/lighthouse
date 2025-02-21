@@ -38,7 +38,6 @@ marked.use({
 });
 
 export default function Projects() {
-  <Script src="https://example.com/script.js" strategy="lazyOnload" />;
 
   const { repos, username } = useGitHub();
   const [displayedRepos, setDisplayedRepos] = useState<Repo[]>([]);
@@ -155,10 +154,10 @@ export default function Projects() {
       <Head>
         <title>Projects | Repository List</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta
-          name="description"
-          content="Explore a list of repositories showcasing various projects and contributions."
-        />
+        <meta name="keywords" content="GitHub, repositories, projects, coding, development" />
+        <meta property="og:title" content="Projects | Repository List" />
+        <meta property="og:description" content="Explore a list of repositories showcasing various projects and contributions." />
+        <meta name="twitter:card" content="summary_large_image" />
       </Head>
       <h1 className={styles.title}>Repository List</h1>
 
