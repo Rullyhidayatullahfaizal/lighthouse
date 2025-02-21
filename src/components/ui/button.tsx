@@ -1,5 +1,5 @@
 import type React from "react";
-import styles from "./button.module.css"; // ✅ Import dengan variable styles
+import styles from "./button.module.css"; 
 
 interface LitButtonProps {
   children: React.ReactNode;

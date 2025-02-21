@@ -4,13 +4,13 @@ import { useGitHub } from "../context/GitHubContext";
 import { useRouter } from "next/router";
 import axios from "axios";
 import LitButton from "@/components/ui/button";
-import LitModal from "@/components/ui/modal"; 
+import LitModal from "@/components/ui/modal";
 
 export default function Home() {
   const [input, setInput] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [modalMessage, setModalMessage] = useState("");  
+  const [modalMessage, setModalMessage] = useState("");
   const { setUsername, setRepos } = useGitHub();
   const router = useRouter();
 
@@ -18,25 +18,29 @@ export default function Home() {
     if (!input) return;
     setLoading(true);
     setUsername(input);
-  
-    try {
-      const response = await axios.get(`https://api.github.com/users/${input}/repos`);
 
-      // Jika user tidak memiliki repository (tapi username valid)
+    try {
+      const response = await axios.get(
+        `https://api.github.com/users/${input}/repos`
+      );
+
+      // If the user does not have a repository (but the username is valid)
       if (response.data.length === 0) {
         setModalMessage("The GitHub username you entered does not exist.");
         setShowModal(true);
         return;
       }
 
-      // Jika berhasil, set repositori dan pindah ke halaman projects
+      // If successful, set the repository and navigate to the projects page
       setRepos(response.data);
       router.push(`/projects`);
     } catch (error) {
       if (axios.isAxiosError(error)) {
         if (error.response?.status === 403) {
           console.warn("GitHub API rate limit exceeded!");
-          setModalMessage("You have exceeded the GitHub API request limit. Please try again later.");
+          setModalMessage(
+            "You have exceeded the GitHub API request limit. Please try again later."
+          );
         } else if (error.response?.status === 404) {
           setModalMessage("The GitHub username you entered does not exist.");
         } else {
@@ -75,7 +79,8 @@ export default function Home() {
         </div>
       </div>
 
-      {/* LitModal dengan modalMessage yang dinamis */}
+      {/* LitModal with a dynamic modalMessage */}
+
       {showModal && (
         <LitModal onClose={() => setShowModal(false)}>
           <h2>Error</h2>

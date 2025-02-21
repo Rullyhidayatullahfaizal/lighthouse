@@ -7,11 +7,9 @@ import Sheet from "@/components/molecules/sheet";
 import LoadingSpinner from "@/components/ui/loadingSpinner";
 import styles from "../styles/projects.module.css";
 import hljs from "highlight.js";
-import "highlight.js/styles/github.css"; // Gaya warna
+import "highlight.js/styles/github.css";
 import Head from "next/head";
 import Script from "next/script";
-
-
 
 interface Repo {
   id: number;
@@ -25,7 +23,7 @@ interface Repo {
 
 const ITEMS_PER_PAGE = 6;
 
-// Konfigurasi `marked` dengan highlight.js
+// Configure `marked` with highlight.js
 marked.use({
   renderer: {
     code({ text, lang }: { text: string; lang?: string }) {
@@ -40,7 +38,7 @@ marked.use({
 });
 
 export default function Projects() {
-  <Script src="https://example.com/script.js" strategy="lazyOnload" />
+  <Script src="https://example.com/script.js" strategy="lazyOnload" />;
 
   const { repos, username } = useGitHub();
   const [displayedRepos, setDisplayedRepos] = useState<Repo[]>([]);
@@ -53,19 +51,12 @@ export default function Projects() {
   const observerRef = useRef<IntersectionObserver | null>(null);
   const loadMoreRef = useRef(null);
 
-// Saat komponen dimuat, coba ambil repos dari localStorage
-useEffect(() => {
-  const storedRepos = localStorage.getItem("repos");
-  if (storedRepos) {
-    const parsedRepos = JSON.parse(storedRepos);
-    setDisplayedRepos(parsedRepos.slice(0, ITEMS_PER_PAGE));
-    setLoading(false);
-  } else if (repos.length > 0) {
-    setDisplayedRepos(repos.slice(0, ITEMS_PER_PAGE));
-    localStorage.setItem("repos", JSON.stringify(repos)); // Simpan di localStorage
-    setLoading(false);
-  }
-}, [repos]);
+  useEffect(() => {
+    if (repos.length > 0) {
+      setDisplayedRepos(repos.slice(0, ITEMS_PER_PAGE));
+      setLoading(false);
+    }
+  }, [repos]);
 
   const loadMoreRepos = useCallback(() => {
     if (displayedRepos.length >= repos.length || isFetchingMore) return;
@@ -114,14 +105,13 @@ useEffect(() => {
       let readmeContent = "<p>This repository has no README file.</p>";
 
       try {
-        // Coba fetch README
         const { data } = await axios.get(
           `https://api.github.com/repos/${username}/${repoName}/readme`
         );
         const readmeResponse = await axios.get(data.download_url);
         readmeContent = readmeResponse.data;
       } catch (readmeError: unknown) {
-        // Jika README tidak ditemukan (404), gunakan konten default
+        // If README is not found (404), use default content
         if (
           axios.isAxiosError(readmeError) &&
           readmeError.response?.status === 404
@@ -135,7 +125,6 @@ useEffect(() => {
       const repoRawBaseUrl = `https://raw.githubusercontent.com/${username}/${repoName}/${defaultBranch}/`;
       const renderer = new marked.Renderer();
 
-      // Perbaiki gambar di README
       renderer.image = (image) => {
         let imageUrl = image.href || "";
         if (!/^https?:\/\//.test(imageUrl)) {
@@ -200,14 +189,14 @@ useEffect(() => {
         </div>
       )}
 
-      {/* Loading lebih banyak repositories */}
       {isFetchingMore && (
         <p className={styles.loading}>Loading more repositories...</p>
       )}
 
       <div ref={loadMoreRef}></div>
 
-      {/* Sheet untuk menampilkan README */}
+      {/* Sheet to display the README */}
+
       <Sheet
         isOpen={isSheetOpen}
         onClose={() => setIsSheetOpen(false)}

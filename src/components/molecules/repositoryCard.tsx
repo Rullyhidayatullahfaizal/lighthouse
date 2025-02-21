@@ -18,7 +18,7 @@ export default function RepositoryCard({
   name,
   isPublic = true,
   language,
-  languageColor = "#3572A5", // TypeScript blue as default
+  languageColor = "#3572A5", 
   stars = 0,
   description: initialDescription = "",
   updatedAt,
@@ -29,7 +29,7 @@ export default function RepositoryCard({
   useEffect(() => {
     const timeout = setTimeout(() => {
       setDescription(initialDescription);
-    }, 100); // Render cepat (100ms)
+    }, 100); 
 
     return () => clearTimeout(timeout);
   }, [initialDescription]);

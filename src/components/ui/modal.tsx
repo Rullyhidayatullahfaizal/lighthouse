@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./modal.module.css"; // ✅ Import dengan variable styles
+import styles from "./modal.module.css"; 
 
 
 interface LitModalProps {

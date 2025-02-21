@@ -43,13 +43,13 @@
   font-size: 12px;
   line-height: 1.5;
   margin: 0;
-  max-height: 5em; /* 3 baris */
+  max-height: 5em; 
   overflow: hidden;
   display: -webkit-box;
-  -webkit-line-clamp: 3; /* Maksimal 3 baris */
-  line-clamp: 3; /* Add this line for standard compatibility */
+  -webkit-line-clamp: 3; 
+  line-clamp: 3; 
   -webkit-box-orient: vertical;
-  box-orient: vertical; /* Add this line for standard compatibility */
+  box-orient: vertical; 
 }
 
 .footer {

@@ -46,7 +46,7 @@ input[type="text"] {
 }
 
 
-/* 📱 RESPONSIVE untuk layar kecil (mobile) */
+/* 📱 RESPONSIVE (mobile) */
 @media (max-width: 766px) {
   .search-title {
     font-size: 2rem; 
