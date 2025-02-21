@@ -58,7 +58,7 @@ input[type="text"] {
   }
 
   .search-box {
-    flex-direction: column; /* Agar tombol turun ke bawah */
+    flex-direction: column; 
     align-items: center;
   }
 
@@ -67,7 +67,7 @@ input[type="text"] {
   }
 
   button {
-    width: 30%; /* Tombol melebar sesuai input */
+    width: 30%; 
 
   }
 }

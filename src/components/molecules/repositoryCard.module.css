@@ -6,9 +6,9 @@
   display: flex;
   flex-direction: column;
   gap: 12px;
-  max-width: 550px; /* Kurangi max-width */
-  max-height: 500px; /* Kurangi max-height */
-  min-height: auto; /* Kurangi min-height */
+  max-width: 550px; 
+  max-height: 500px; 
+  min-height: 150px; 
 }
 
 .header {

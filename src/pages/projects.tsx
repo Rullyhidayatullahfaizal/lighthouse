@@ -9,6 +9,8 @@ import styles from "../styles/projects.module.css";
 import hljs from "highlight.js";
 import "highlight.js/styles/github.css"; // Gaya warna
 import Head from "next/head";
+import Script from "next/script";
+
 
 
 interface Repo {
@@ -38,6 +40,8 @@ marked.use({
 });
 
 export default function Projects() {
+  <Script src="https://example.com/script.js" strategy="lazyOnload" />
+
   const { repos, username } = useGitHub();
   const [displayedRepos, setDisplayedRepos] = useState<Repo[]>([]);
   const [loading, setLoading] = useState(true);
@@ -132,7 +136,7 @@ export default function Projects() {
         }
         return `<img src="${imageUrl}" alt="${image.text}" title="${
           image.title || ""
-        }" style="max-width: 100%;" />`;
+        }" width="600" height="400" style="max-width: 100%;" />`;
       };
 
       marked.use({ renderer });
