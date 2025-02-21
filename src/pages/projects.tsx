@@ -53,12 +53,19 @@ export default function Projects() {
   const observerRef = useRef<IntersectionObserver | null>(null);
   const loadMoreRef = useRef(null);
 
-  useEffect(() => {
-    if (repos.length > 0) {
-      setDisplayedRepos(repos.slice(0, ITEMS_PER_PAGE));
-      setLoading(false);
-    }
-  }, [repos]);
+// Saat komponen dimuat, coba ambil repos dari localStorage
+useEffect(() => {
+  const storedRepos = localStorage.getItem("repos");
+  if (storedRepos) {
+    const parsedRepos = JSON.parse(storedRepos);
+    setDisplayedRepos(parsedRepos.slice(0, ITEMS_PER_PAGE));
+    setLoading(false);
+  } else if (repos.length > 0) {
+    setDisplayedRepos(repos.slice(0, ITEMS_PER_PAGE));
+    localStorage.setItem("repos", JSON.stringify(repos)); // Simpan di localStorage
+    setLoading(false);
+  }
+}, [repos]);
 
   const loadMoreRepos = useCallback(() => {
     if (displayedRepos.length >= repos.length || isFetchingMore) return;
